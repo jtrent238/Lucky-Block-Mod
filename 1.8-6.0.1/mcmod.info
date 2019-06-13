@@ -1,0 +1,16 @@
+[
+{
+  "modid": "lucky",
+  "name": "Lucky Block",
+  "description": "The Lucky Block Mod. Yout fortune awaits.",
+  "version": "6.0.1",
+  "mcversion": "1.8",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["PLayerInDistress"],
+  "credits": "Created by PlayerInDistress",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

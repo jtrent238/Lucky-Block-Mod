@@ -1,0 +1,90 @@
+==== Version 6.0.1 ====
+ - Fixed server incompatibility
+ - Minor bug fixes.
+
+==== Version 6.0.0 ====
+
+ == General ==
+
+ - Major code clean-up and increased performance.
+ - Added a add-on system which allows for custom add-ons to be easily installed. Add-ons allow for new Lucky Blocks to be added with custom configuration and texture. More information on creating add-ons in the documentation.
+ - Added a completely new structure system, which supports custom structures in .schematic format, allows for rotation and has a variety of other features.
+ - Updated some of the drops to include new 1.8 items.
+ - Added over 10 new drops, including a giant Lucky Block!
+
+ == Technical ==
+
+  - Added a full HTML documentation of the Lucky Block configuration system. You can download it on the forum. Details about all of the configuration options are fully documented. If you want to configure the mod or make a custom add-on, refer to it. There are plenty of examples to help you. However, if you notice any errors in it, or the examples don't work as expected, please post it on the forum.
+
+ - The configuration is now divided into multiple files, each with their own properties. The main file is drops.txt, containing all of the drops. Also, these files are now located in .minecraft/config/lucky_block/version-x-x-x. This means that new versions will add a new directory rather than overwriting the old one.
+
+ - Added properties such as pos, pos2, doUpdate, rotation, blockMode and more. Read the documentation if you are interested.
+ - Added a 'fill' drop type used to fill areas with blocks.
+ - Added a variety of new hash variables (e.g. #time), all listed in the documentation.
+ - Added a 'delay' property. This allows drops to be delayed by a certain amount of seconds. Also added 'postDelayInit'.
+ - Added chest hash variables, such as #chestBonusChest, and a #chest(...) hash variable for randomizing chests. Refer to the documentation.
+
+- Groups now support 'external properties'. These are properties that only need to be specified once, but will be applied to each element of the group (except elements that are groups themselves). They are specified like this: "group(ID=gold_ingot,ID=diamond),amount=2,delay=1". This will drop gold ingots and diamonds; two of each with a one second delay.
+
+ - All entities now use 'real' entity format (i.e. the format you would use in commands). Entities with lowercase names (such as 'tnt' or 'fireworks') have all been updated, and the lowercase names removed.
+ - The type 'falling_block' has been replaced with it's real, FallingBlock entity equivalent. Also updated the appearance of the particles to look more dramatic.
+
+ - The 'reinitialize' property now defaults to true if the drop contains hash variables, and therefore will rarely need to be changed
+ - Added support for multiple crafting recipes for the Lucky Block as well as shapeless recipes.
+ - Crafting recipes and luck crafting supports specifying the damage value of items by using a colon (e.g. fish:3)
+ - Added posOffsetX, posOffsetY, posOffsetZ and posOffset properties to replace scatterOffset. To specify an scatter offset, the syntax is now posOffset=#circleOffset(min,max)
+ 
+ - When formatting strings, use '$' instead of '#'. For example, '$cMessage' formats a message red. This has changed avoid conflicts, and '$' looks more like a sector sign. Other hash variables use '#', as before.
+ - Similarly to Python syntax, lines ending in a backslash '\' in any text file will indicate that the text continues onto the next line. This is a replacement for '>', and works in all files.
+
+ - #randomPotionEffect has been renamed to #randPotionParticle, as the previous name was misleading. Some other hash variables have also changed the '#random' in their name to '#rand'
+ - #randomFireworkRocket has been renamed to #randFireworksRocket, and it now gives an NBT Tag Compound for the fireworks item, not entity. See documentation for how to make entity fireworks.
+
+ - Due to performance improvements, complex JavaScript expressions are no longer supported by default. You are still able to use +, -, *, /. If desired, JavaScript expressions can still be achieved by putting the value that needs calculation inside of #eval(...). This is not recommended, however, as it is inefficient.
+
+ - #playerName and #playerDirect are now #pName and #pDirect. This is consistent with #pPos, #pPosX, etc.
+
+ == Syntax Changes ==
+
+ Some syntax changes have bean noted above. Below is a list and example of the syntax changes
+
+ - Entities now use a more 'real' format.
+ Before:
+  	type=entity,ID=fireworks,NBTTag=#randomFireworkRocket
+  	type=falling_block,ID=wool,damage=4
+ Now:
+ 	type=entity,ID=FireworksRocketEntity,NBTTag=(LifeTime=20,FireworksItem=(id=fireworks,tag=#randFireworksRocket))
+ 	type=entity,ID=FallingSand,NBTTag=(Block=wool,Data=4)
+Note: #randomFireworkRocket has been renamed to #randFireworksRocket. It also now returns the NBT Tag of the ITEM, not entity.
+
+- Some hash variables have been renamed
+Before:
+  	#playerName
+  	#randomPotionEffect
+  	#randomFireworkRocket
+  	Anything begining with #random (#randomSpawEggDamage, #randomPotionDamage, etc.)
+ Now:
+ 	#pName
+ 	#randPotionParticle
+ 	#randFireworksRocket (and it returns the tag of the fireworks item now)
+ 	Now begins with #rand (#randSpawEggDamage, #randPotionDamage, etc.)
+
+- All text formatting now uses '$' instead of '#'
+Before:
+	#cThe color red
+Now:
+	$cThe color red
+
+- Line continuation now uses '\' instead of '>'. Similar to python syntax.
+Before:
+	type=item,ID=diamond,>
+	amount=2
+Now:
+	type=item,ID=diamond, \
+	amount=2
+
+- Complex JavaScript expressions are only supported through #eval(...).
+Before:
+	ID=45*2-8
+Now:
+	ID=#eval(45*2-8)
