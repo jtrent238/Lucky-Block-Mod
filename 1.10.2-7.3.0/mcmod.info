@@ -1,0 +1,16 @@
+[
+{
+  "modid": "lucky",
+  "name": "Lucky Block",
+  "description": "The Lucky Block Mod",
+  "version": "7.3.0",
+  "mcversion": "1.10.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["PlayerInDistress"],
+  "credits": "Created by PlayerInDistress",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
